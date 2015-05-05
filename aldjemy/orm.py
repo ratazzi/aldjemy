@@ -112,7 +112,7 @@ class BaseSQLAModel(object):
         return get_session(alias).query(cls)
 
     @classmethod
-    def bind(cls, sel):
-        alias = getattr(cls, 'alias', 'default')
+    def bind(cls, sel, using=None):
+        alias = using or getattr(cls, 'alias', 'default')
         sel.bind = get_engine(alias)
         return sel
